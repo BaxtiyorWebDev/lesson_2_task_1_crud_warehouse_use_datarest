@@ -41,7 +41,7 @@ public class AttachmentService {
         attachmentContent.setAttachment(savedAttachment);
         attachmentContentRepo.save(attachmentContent);
 
-        return new Result("Fayl saqlandi", true, savedAttachment.getId());
+        return new Result("Fayl saqlandi", true);
     }
 
     public Page<Attachment> getAttachmentsList(int page) {
@@ -59,10 +59,10 @@ public class AttachmentService {
     public Result deleteAttachment(Integer id) {
         Optional<Attachment> optionalAttachment = attachmentRepository.findById(id);
         if (!optionalAttachment.isPresent())
-            return new Result("Bunday ma'lumot topilmadi", false, id);
+            return new Result("Bunday ma'lumot topilmadi", false);
         AttachmentContent byAttachmentId = attachmentContentRepo.findByAttachmentId(id);
         attachmentContentRepo.delete(byAttachmentId);
         attachmentRepository.delete(optionalAttachment.get());
-        return new Result("Ma'lumot o'chirildi", true, id);
+        return new Result("Ma'lumot o'chirildi", true);
     }
 }
